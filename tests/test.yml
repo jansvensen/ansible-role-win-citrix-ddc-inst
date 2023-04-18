@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - citrix-ddc
+    - ansible-role-win-citrix-ddc-inst
