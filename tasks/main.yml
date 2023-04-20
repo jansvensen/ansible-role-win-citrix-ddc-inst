@@ -11,9 +11,9 @@
 
 - name: Map SMB share
   win_shell: |
-    net use \\10.10.1.22 "deviceTRUST$" /user:share
+    net use \\10.10.1.22 '{{ smb_share_password }}' /user:'{{ smb_share_username }}'
 
-- name: create folder
+- name: create install folder
   win_file: 
     path: '{{ citrix_installfolder }}'
     state: directory
