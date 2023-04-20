@@ -44,7 +44,7 @@
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
   vars:
     ansible_become_user: "{{ dc_user_admin }}"
-    ansible_become_pass: "{{ win_password_admin }}"
+    ansible_become_pass: "{{ dc_password_admin }}"
   register: ddc_install
 
 - name: Reboot
