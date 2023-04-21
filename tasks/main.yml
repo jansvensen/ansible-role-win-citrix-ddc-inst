@@ -4,30 +4,18 @@
       path: '{{ citrix_installfolder }}'
       state: directory
 
-  - name: Copy script
-    win_copy:
-      src: '{{ item }}'
-      dest: '{{ citrix_installfolder }}'
-    with_fileglob:
-      - '*.ps1'
-
   - name: Map SMB share
     win_shell: |
       net use \\10.10.1.22 '{{ smb_share_password }}' /user:'{{ smb_share_username }}'
 
-  - name: Copy Citrix iso to the local disk
+  - name: Copy Citrix zip to the local disk
     win_copy:
-      src: '{{ citrix_ddc_srcisofile }}'
+      src: '{{ citrix_ddc_srczipfile }}'
       remote_src: true
-      dest: '{{ citrix_ddc_destisofile }}' 
+      dest: '{{ citrix_ddc_destzipfile }}' 
       force: no
 
   - name: Unzip ISO
     community.windows.win_unzip:
-      src: '{{ citrix_ddc_destisofile }}'
-      dest: '{{ citrix_installfolder }}\XD'
-
-  - name: Create Site
-    script: 'files/installddc.ps1'
-    args:
-      creates: '{{ citrix_logfolder }}\install_ddc.txt'
+      src: '{{ citrix_ddc_destzipfile }}'
+      dest: '{{ citrix_installfolder }}'
