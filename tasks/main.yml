@@ -56,7 +56,7 @@
       ansible_become_pass: "{{ citrix_password_admin }}"
     register: ddc_install_started
 
-  - name: Pause for 5 minutese
+  - name: Pause for 5 minutes
     ansible.builtin.pause:
       minutes: 5
 
