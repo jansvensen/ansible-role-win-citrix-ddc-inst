@@ -21,21 +21,21 @@
 
 - name: Copy Citrix iso to the local disk
   win_copy:
-    src: "{{ srcisofile }}"
+    src: "{{ citrix_ddc_srcisofile }}"
     remote_src: true
-    dest: "{{ destisofile }}" 
+    dest: "{{ citrix_ddc_destisofile }}" 
     force: no
 
 - name: Ensure an ISO is mounted
   win_disk_image: 
-    image_path: "{{ destisofile }}"
+    image_path: "{{ citrix_ddc_destisofile }}"
     state: present
   register: disk_image_out
 
 - name: Install DDC Components
   win_package:
-    path: "{{ exepath }}"
-    arguments: "{{ params_full }}"
+    path: "{{ citrix_ddc_exepath }}"
+    arguments: "{{ citrix_ddc_params_full }}"
     state: present
     expected_return_code: [0, 3, 3010]
     creates_path: 'C:\Program Files\Citrix\Desktop Studio'
