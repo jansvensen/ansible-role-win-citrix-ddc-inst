@@ -4,6 +4,13 @@
       path: '{{ citrix_installfolder }}'
       state: directory
 
+  - name: Copy script
+    win_copy:
+      src: '{{ item }}'
+      dest: '{{ citrix_installfolder }}'
+    with_fileglob:
+      - '*.ps1'
+
   - name: Map SMB share
     win_shell: |
       net use \\10.10.1.22 '{{ smb_share_password }}' /user:'{{ smb_share_username }}'
@@ -19,13 +26,6 @@
     community.general.iso_extract:
       image: '{{ citrix_ddc_destisofile }}'
       dest: '{{ citrix_installfolder }}\XD'
-
-  - name: Copy script
-    win_copy:
-      src: '{{ item }}'
-      dest: '{{ citrix_installfolder }}'
-    with_fileglob:
-      - '*.ps1'
 
   - name: Create Site
     script: 'files/installddc.ps1'
