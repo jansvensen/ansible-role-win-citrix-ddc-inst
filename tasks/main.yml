@@ -49,6 +49,12 @@
   win_reboot:
   when: ddc_install.changed
 
+- name: Ensure an ISO is mounted
+  win_disk_image: 
+    image_path: "{{ citrix_ddc_destisofile }}"
+    state: present
+  register: disk_image_out
+
 - name: Remove DDC RunOnce Key
   win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce
