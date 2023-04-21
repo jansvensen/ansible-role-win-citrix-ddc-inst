@@ -4,6 +4,10 @@
       path: '{{ citrix_installfolder }}'
       state: directory
 
+  - name: Map SMB share
+    win_shell: |
+      net use \\10.10.1.22 '{{ smb_share_password }}' /user:'{{ smb_share_username }}'
+
   - name: Copy Citrix iso to the local disk
     win_copy:
       src: '{{ citrix_ddc_srcisofile }}'
