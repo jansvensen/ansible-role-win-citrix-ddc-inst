@@ -1,14 +1,14 @@
 ---
-- name: Install VDA Pre-Reqs
+- name: Install DDC Pre-Reqs
   win_feature:
-    name: "{{ citrix_rdsh_vda_prereqs }}"
+    name: "{{ citrix_rdsh_ddc_prereqs }}"
     state: present
-  register: rdsh_vda_prereqs 
+  register: rdsh_ddc_prereqs 
 
 - name: Reboot if features require
   ansible.windows.win_reboot:
     post_reboot_delay: 120
-  when: rdsh_vda_prereqs.reboot_required
+  when: rdsh_ddc_prereqs.reboot_required
 
 - name: Map SMB share
   win_shell: |
