@@ -23,8 +23,8 @@
       force: no
 
   - name: Unzip ISO
-    community.general.iso_extract:
-      image: '{{ citrix_ddc_destisofile }}'
+    community.windows.win_unzip:
+      src: '{{ citrix_ddc_destisofile }}'
       dest: '{{ citrix_installfolder }}\XD'
 
   - name: Create Site
