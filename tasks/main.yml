@@ -15,7 +15,7 @@
       dest: '{{ citrix_ddc_destzipfile }}' 
       force: no
 
-  - name: Unzip ISO
+  - name: Unzip ZIP
     community.windows.win_unzip:
       src: '{{ citrix_ddc_destzipfile }}'
       dest: '{{ citrix_installfolder }}'
