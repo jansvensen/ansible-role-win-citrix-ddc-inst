@@ -43,8 +43,8 @@
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
   vars:
-    ansible_become_user: "{{ dc_user_admin }}"
-    ansible_become_pass: "{{ dc_password_admin }}"
+    ansible_become_user: "{{ citrix_user_admin }}"
+    ansible_become_pass: "{{ citrix_password_admin }}"
 
 - name: Reboot
   ansible.windows.win_reboot:
