@@ -66,9 +66,11 @@
   vars:
     ansible_become_user: "{{ citrix_user_admin }}"
     ansible_become_pass: "{{ citrix_password_admin }}"
+  register: ddc_install_started
 
 - name: Reboot
   ansible.windows.win_reboot:
+  when: ddc_install_started.changed
 
 - name: Remove DDC RunOnce Key
   win_regedit:
@@ -90,9 +92,11 @@
     expected_return_code: [0, 3, 3010]
     creates_path: 'C:\Program Files\Citrix\Desktop Studio'
   when: ddc_resume.changed
+  register: ddc_install_continued
 
 - name: Reboot
   ansible.windows.win_reboot:
+  when: ddc_install_continued.changed
 
 - name: Remove auto-logon reg keys - 1
   ansible.windows.win_regedit:
