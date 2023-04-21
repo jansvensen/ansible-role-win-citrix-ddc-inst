@@ -1,14 +1,14 @@
 ---
 - name: Install DDC Pre-Reqs
   win_feature:
-    name: "{{ citrix_rdsh_ddc_prereqs }}"
+    name: "{{ citrix_ddc_prereqs }}"
     state: present
-  register: rdsh_ddc_prereqs 
+  register: ddc_prereqs 
 
 - name: Reboot if features require
   ansible.windows.win_reboot:
     post_reboot_delay: 120
-  when: rdsh_ddc_prereqs.reboot_required
+  when: ddc_prereqs.reboot_required
 
 - name: Map SMB share
   win_shell: |
