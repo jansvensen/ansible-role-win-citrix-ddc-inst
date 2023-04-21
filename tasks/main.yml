@@ -56,16 +56,16 @@
       ansible_become_pass: "{{ citrix_password_admin }}"
     register: ddc_install_started
 
-  - name: Pause for 5 minutes
+  - name: Pause for 10 minutes
     ansible.builtin.pause:
-      minutes: 5
+      minutes: 10
 
-  - name: Wait for installation being finished
-    win_shell: 
-      'type C:\Temp\ansible.readme'  
-    register: content
-    until: "'{{ content }}' = Something"
-    delay: 30
+  #- name: Wait for installation being finished
+  #  win_shell: 
+ #     'type C:\Temp\ansible.readme'  
+ #   register: content
+  #  until: "'{{ content }}' = Something"
+   # delay: 30
 
   - name: Remove auto-logon reg keys - 1
     ansible.windows.win_regedit:
