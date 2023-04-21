@@ -94,9 +94,9 @@
   when: ddc_resume.changed
   register: ddc_install_continued
 
-- name: Reboot
-  ansible.windows.win_reboot:
-  when: ddc_install_continued.changed
+#- name: Reboot
+#  ansible.windows.win_reboot:
+#  when: ddc_install_continued.changed
 
 - name: Remove auto-logon reg keys - 1
   ansible.windows.win_regedit:
@@ -116,5 +116,5 @@
     name: DefaultPassword
     state: absent
 
-- name: Reboot
-  ansible.windows.win_reboot:
+#- name: Reboot
+#  ansible.windows.win_reboot:
