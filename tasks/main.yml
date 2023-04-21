@@ -19,3 +19,18 @@
     community.windows.win_unzip:
       src: '{{ citrix_ddc_destzipfile }}'
       dest: '{{ citrix_installfolder }}'
+
+  - name: Install DDC Components
+    win_package:
+      path: "{{ citrix_ddc_exepath }}"
+      arguments: "{{ citrix_ddc_params_full }}"
+      state: present
+      expected_return_code: [0, 3, 3010]
+      creates_path: 'C:\Program Files\Citrix\Desktop Studio'
+    become: yes
+    become_method: runas
+    become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+    vars:
+      ansible_become_user: "{{ citrix_user_admin }}"
+      ansible_become_pass: "{{ citrix_password_admin }}"
+    register: ddc_install_started
