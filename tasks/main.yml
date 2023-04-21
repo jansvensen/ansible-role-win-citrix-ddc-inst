@@ -7,7 +7,7 @@
 
 - name: Reboot if features require
   win_reboot:
-  when: win_feature.reboot_required
+  when: ddc_prereqs.reboot_required
 
 - name: Map SMB share
   win_shell: |
