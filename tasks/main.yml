@@ -56,9 +56,9 @@
       ansible_become_pass: "{{ citrix_password_admin }}"
     register: ddc_install_started
 
-  - name: Pause for 5 minutes
+  - name: Pause for 10 minutes
     ansible.builtin.pause:
-      minutes: 5
+      minutes: 10
 
   - name: Wait 300 for Windows Installer process to stop
     community.windows.win_wait_for_process:
