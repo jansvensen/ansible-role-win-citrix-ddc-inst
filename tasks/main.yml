@@ -56,9 +56,14 @@
       ansible_become_pass: "{{ citrix_password_admin }}"
     register: ddc_install_started
 
-  - name: Pause for 10 minutes
+  - name: Pause for 5 minutes
     ansible.builtin.pause:
-      minutes: 10
+      minutes: 5
+
+  - name: Wait 300 for Windows Installer process to stop
+    community.windows.win_wait_for_process:
+      process_name_exact: 'msiexec'
+      state: absent
 
   - name: Remove auto-logon reg keys - 1
     ansible.windows.win_regedit:
