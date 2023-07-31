@@ -60,10 +60,11 @@
     ansible.builtin.pause:
       minutes: 10
 
-  - name: Wait 300 for Windows Installer process to stop
+  - name: Wait for Windows Installer process to stop
     community.windows.win_wait_for_process:
       process_name_exact: 'msiexec'
       state: absent
+      timeout: 900
 
   - name: Remove auto-logon reg keys - 1
     ansible.windows.win_regedit:
