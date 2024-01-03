@@ -23,54 +23,9 @@
 
     - name: Install Citrix Delivery Controller prerequisites
       win_feature:
-        name:
-          - NET-Framework-Core
-          - NET-Framework-45-Core
-          - NET-Framework-45-ASPNET
-          - GPMC
-          - RSAT-ADDS-Tools
-          - RDS-Licensing-UI
-          - WAS
-          - Telnet-Client
-          - GPMC
-          - Remote-Assistance
-          - RSAT-AD-Tools
-          - Web-Server
-          - Web-WebServer
-          - Web-Common-Http
-          - Web-Default-Doc
-          - Web-Dir-Browsing
-          - Web-Http-Errors
-          - Web-Static-Content
-          - Web-Http-Redirect
-          - Web-Health
-          - Web-Http-Logging
-          - Web-Log-Libraries
-          - Web-Http-Tracing
-          - Web-Performance
-          - Web-Stat-Compression
-          - Web-Dyn-Compression
-          - Web-Security
-          - Web-Filtering
-          - Web-Basic-Auth
-          - Web-Windows-Auth
-          - Web-Net-Ext45
-          - Web-ASP
-          - Web-ASP-Net45
-          - Web-CGI
-          - Web-ISAPI-Ext
-          - Web-ISAPI-Filter
-          - Web-Includes
-          - Web-WebSockets
-          - Web-Mgmt-Tools
-          - Web-Mgmt-Console
-          - Web-Mgmt-Compat
-          - Web-Metabase
-          - Web-Lgcy-Mgmt-Console
-          - Web-Lgcy-Scripting
-          - Web-WMI
-          - Web-Scripting-Tools
+        name: '{{ item }}'
         state: present
+      with_items: '{{ citrix_ddc_prereqs }}'
       register: win_feature
 
     - name: Reboot machine for Windows Features
