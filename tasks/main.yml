@@ -25,7 +25,7 @@
       win_feature:
         name: '{{ item }}'
         state: present
-      with_items: '{{ citrix_ddc_prereqs }}'
+      with_items: '{{ citrix.ddc.prereqs }}'
       register: win_feature
 
     - name: Reboot machine for Windows Features
@@ -83,7 +83,7 @@
     - name: Install Citrix Delivery Controller role
       win_package:
         path: "{{ disk_image_out.mount_paths[0] }}\\x64\\XenDesktop Setup\\XenDesktopServerSetup.exe"
-        arguments: "{{ citrix_ddc_params_full }}"
+        arguments: "{{ citrix.ddc.params_full }}"
         state: present
         expected_return_code: [0, 3, 3010]
       register: citrix_installation
@@ -126,7 +126,7 @@
     - name: Resume the Citrix Delivery Controller installation
       win_package:
         path: C:\ProgramData\Citrix\XenDesktopSetup\XenDesktopServerSetup.exe
-        arguments: "{{ citrix_ddc_params_full }}"
+        arguments: "{{ citrix.ddc.params_full }}"
         state: present
         expected_return_code: [0, 3, 3010]
       when: install_resume.changed
