@@ -3,7 +3,7 @@
   win_reg_stat:
     path: HKLM:\Software\GO-EUC\Citrix
     name: ddc_version
-  register: citrix_version
+  register: citrix.version
 
 - name: Block for Citrix installation
   block:
@@ -154,4 +154,4 @@
         data: "{{ citrix.version }}"
         type: string
 
-  when: (citrix_version.exists == false) or (citrix_version.value != citrix.version)
+  when: (citrix.version.exists == false) or (citrix.version.value != citrix.version)
