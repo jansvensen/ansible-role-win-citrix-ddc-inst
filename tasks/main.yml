@@ -22,7 +22,7 @@
 
   - name: create install folder
     win_file: 
-      path: '{{ citrix_installfolder }}'
+      path: '{{ directory_install }}'
       state: directory
 
   - name: Download Citrix ZIPfile
@@ -33,7 +33,7 @@
   - name: Unzip ZIP
     community.windows.win_unzip:
       src: 'C:\\Download\\Citrix\\{{citrix.zip}}'
-      dest: '{{ citrix_installfolder }}'
+      dest: '{{ directory_install }}'
 
   - name: Install DDC Components
     win_package:
