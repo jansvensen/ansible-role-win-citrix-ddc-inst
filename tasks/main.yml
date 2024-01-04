@@ -20,9 +20,14 @@
       data: '{{ ansible_password }}'
       state: present
 
-  - name: create install folder
-    win_file: 
+  - name: Create Install Folder
+    win_file:
       path: '{{ directory_install }}'
+      state: directory
+
+  - name: Create Citrix Install Folder
+    win_file:
+      path: '{{ directory_install }}\Citrix'
       state: directory
 
   - name: Download Citrix ZIPfile
