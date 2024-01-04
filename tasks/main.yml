@@ -33,11 +33,11 @@
   - name: Download Citrix ZIPfile
     win_get_url:
       url: '{{citrix.installation.path}}/{{citrix.version.number}}/{{citrix.installation.zip}}'
-      dest: 'C:\\Download\\Citrix\\{{citrix.installation.zip}}'
+      dest: '{{ directory_install }}\Citrix\{{citrix.installation.zip}}'
 
   - name: Unzip ZIP
     community.windows.win_unzip:
-      src: 'C:\\Download\\Citrix\\{{citrix.installation.zip}}'
+      src: '{{ directory_install }}\Citrix\{{citrix.installation.zip}}'
       dest: '{{ directory_install }}'
 
   - name: Install DDC Components
