@@ -27,7 +27,7 @@
 
   - name: Download Citrix ZIPfile
     win_get_url:
-      url: '{{citrix.path}}/{{citrix.version}}/{{citrix.zip}}'
+      url: '{{citrix.installation.path}}/{{citrix.version.number}}/{{citrix.zip}}'
       dest: 'C:\\Download\\Citrix\\{{citrix.zip}}'
 
   - name: Unzip ZIP
