@@ -23,7 +23,7 @@
 
   - name: Create Log Folder
     win_file:
-      path: '{{ directory_logging }}'
+      path: '{{ win.directory.logging }}'
       state: directory
 
   - name: Create Download Folder
@@ -79,8 +79,8 @@
     become_method: runas
     become_flags: logon_type=new_credentials logon_flags=netcredentials_only
     vars:
-      ansible_become_user: "{{ ansible_user }}"
-      ansible_become_pass: "{{ ansible_password }}"
+      ansible_become_user: "{{ ansible.user }}"
+      ansible_become_pass: "{{ ansible.password }}"
     register: citrix_installation
 
   - name: Unmount the Citrix installation ISO
@@ -128,8 +128,8 @@
     become_method: runas
     become_flags: logon_type=new_credentials logon_flags=netcredentials_only
     vars:
-      ansible_become_user: "{{ ansible_user }}"
-      ansible_become_pass: "{{ ansible_password }}"
+      ansible_become_user: "{{ ansible.user }}"
+      ansible_become_pass: "{{ ansible.password }}"
     when: install_resume.changed
 
   - name: Unmount the Citrix installation ISO
