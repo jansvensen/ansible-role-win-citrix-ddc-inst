@@ -26,11 +26,9 @@
         name: '{{ item }}'
         state: present
       with_items: '{{ citrix.ddc.prereqs }}'
-      register: win_feature
 
     - name: Reboot machine for Windows Features
       ansible.windows.win_reboot:
-      when: win_feature.reboot_required
 
     - name: Create Log Folder
       win_file:
