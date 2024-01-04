@@ -79,8 +79,8 @@
     become_method: runas
     become_flags: logon_type=new_credentials logon_flags=netcredentials_only
     vars:
-      ansible_become_user: "{{ citrix.admin.user }}"
-      ansible_become_pass: "{{ citrix.admin.password }}"
+      ansible_become_user: "{{ ansible_user }}"
+      ansible_become_pass: "{{ ansible_password }}"
     register: citrix_installation
 
   - name: Unmount the Citrix installation ISO
@@ -128,8 +128,8 @@
     become_method: runas
     become_flags: logon_type=new_credentials logon_flags=netcredentials_only
     vars:
-      ansible_become_user: "{{ citrix_user_admin }}"
-      ansible_become_pass: "{{ citrix_password_admin }}"
+      ansible_become_user: "{{ ansible_user }}"
+      ansible_become_pass: "{{ ansible_password }}"
     when: install_resume.changed
 
   - name: Unmount the Citrix installation ISO
