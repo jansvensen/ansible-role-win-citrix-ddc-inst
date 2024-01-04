@@ -38,11 +38,11 @@
   - name: Unzip ZIP
     community.windows.win_unzip:
       src: '{{ directory_install }}\Citrix\{{citrix.installation.zip}}'
-      dest: '{{ directory_install }}'
+      dest: '{{ directory_install }}\Citrix'
 
   - name: Install DDC Components
     win_package:
-      path: '{{ citrix.ddc.exepath }}'
+      path: '{{ directory_install }}\Citrix\{{ citrix.version.name }}\{{ citrix.ddc.installation.exepath }}'
       arguments: '{{ citrix.ddc.params_full }}'
       state: present
       expected_return_code: [0, 3, 3010]
