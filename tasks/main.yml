@@ -75,6 +75,12 @@
       arguments: "{{ citrix.ddc.params_full }}"
       state: present
       expected_return_code: [0, 3, 3010]
+    become: true
+    become_method: runas
+    become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+    vars:
+      ansible_become_user: "{{ citrix_user_admin }}"
+      ansible_become_pass: "{{ citrix_password_admin }}"
     register: citrix_installation
 
   - name: Unmount the Citrix installation ISO
@@ -117,7 +123,13 @@
       path: C:\ProgramData\Citrix\XenDesktopSetup\XenDesktopServerSetup.exe
       arguments: "{{ citrix.ddc.params_full }}"
       state: present
-      expected_return_code: [0, 3, 3010]
+      expected_return_code: [0, 3, 3010]    
+    become: true
+    become_method: runas
+    become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+    vars:
+      ansible_become_user: "{{ citrix_user_admin }}"
+      ansible_become_pass: "{{ citrix_password_admin }}"
     when: install_resume.changed
 
   - name: Unmount the Citrix installation ISO
