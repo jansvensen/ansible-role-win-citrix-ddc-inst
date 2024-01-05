@@ -22,27 +22,27 @@
 
   - name: Create Install Folder
     win_file:
-      path: '{{ win.directory.install }}'
+      path: '{{ directory_install }}'
       state: directory
 
   - name: Create Citrix Install Folder
     win_file:
-      path: '{{ win.directory.install }}\Citrix'
+      path: '{{ directory_install }}\Citrix'
       state: directory
 
   - name: Download Citrix ZIPfile
     win_get_url:
       url: '{{citrix.installation.path}}/{{citrix.version.number}}/{{citrix.installation.zip}}'
-      dest: '{{ win.directory.install }}\Citrix\{{citrix.installation.zip}}'
+      dest: '{{ directory_install }}\Citrix\{{citrix.installation.zip}}'
 
   - name: Unzip ZIP
     community.windows.win_unzip:
-      src: '{{ win.directory.install }}\Citrix\{{citrix.installation.zip}}'
-      dest: '{{ win.directory.install }}\Citrix'
+      src: '{{ directory_install }}\Citrix\{{citrix.installation.zip}}'
+      dest: '{{ directory_install }}\Citrix'
 
   - name: Install DDC Components
     win_package:
-      path: '{{ win.directory.install }}\Citrix\{{ citrix.version.name }}\{{ citrix.ddc.installation.exepath }}'
+      path: '{{ directory_install }}\Citrix\{{ citrix.version.name }}\{{ citrix.ddc.installation.exepath }}'
       arguments: '{{ citrix.ddc.installation.params_full }}'
       state: present
       expected_return_code: [0, 3, 3010]
