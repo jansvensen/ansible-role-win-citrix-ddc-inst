@@ -20,39 +20,40 @@
       data: '{{ ansible_password }}'
       state: present
 
-  - name: Create Install Folder
-    win_file:
-      path: '{{ win.directory.install }}'
+  - name: create install folder
+    win_file: 
+      path: '{{ citrix_installfolder }}'
       state: directory
 
-  - name: Create Citrix Install Folder
-    win_file:
-      path: '{{ win.directory.install }}\Citrix'
-      state: directory
+  - name: Map SMB share
+    win_shell: |
+      net use \\10.10.1.22 '{{ smb_share_password }}' /user:'{{ smb_share_username }}'
 
-  - name: Download Citrix ZIPfile
-    win_get_url:
-      url: '{{citrix.installation.path}}/{{citrix.version.number}}/{{citrix.installation.zip}}'
-      dest: '{{ win.directory.install }}\Citrix\{{citrix.installation.zip}}'
+  - name: Copy Citrix zip to the local disk
+    win_copy:
+      src: '{{ citrix_ddc_srczipfile }}'
+      remote_src: true
+      dest: '{{ citrix_ddc_destzipfile }}' 
+      force: no
 
   - name: Unzip ZIP
     community.windows.win_unzip:
-      src: '{{ win.directory.install }}\Citrix\{{citrix.installation.zip}}'
-      dest: '{{ win.directory.install }}\Citrix'
+      src: '{{ citrix_ddc_destzipfile }}'
+      dest: '{{ citrix_installfolder }}'
 
   - name: Install DDC Components
     win_package:
-      path: '{{ win.directory.install }}\Citrix\{{ citrix.version.name }}\{{ citrix.ddc.installation.exepath }}'
-      arguments: '{{ citrix.ddc.installation.params_full }}'
+      path: "{{ citrix_ddc_exepath }}"
+      arguments: "{{ citrix_ddc_params_full }}"
       state: present
       expected_return_code: [0, 3, 3010]
       creates_path: 'C:\Program Files\Citrix\Desktop Studio'
-    become: true
+    become: yes
     become_method: runas
     become_flags: logon_type=new_credentials logon_flags=netcredentials_only
     vars:
-      ansible_become_user: '{{ ansible_user }}'
-      ansible_become_pass: '{{ ansible_password }}'
+      ansible_become_user: "{{ citrix_user_admin }}"
+      ansible_become_pass: "{{ citrix_password_admin }}"
     register: ddc_install_started
 
   - name: Pause for 10 minutes
