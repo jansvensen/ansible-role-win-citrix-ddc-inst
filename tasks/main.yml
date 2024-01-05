@@ -22,7 +22,7 @@
 
   - name: create install folder
     win_file: 
-      path: '{{ citrix_installfolder }}'
+      path: '{{ win_directory_install }}'
       state: directory
 
   - name: Map SMB share
@@ -39,7 +39,7 @@
   - name: Unzip ZIP
     community.windows.win_unzip:
       src: '{{ citrix_ddc_destzipfile }}'
-      dest: '{{ citrix_installfolder }}'
+      dest: '{{ win_directory_install }}'
 
   - name: Install DDC Components
     win_package:
